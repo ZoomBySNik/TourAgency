@@ -1,6 +1,7 @@
 from django.db import models
 from django.core.validators import MinValueValidator, MaxValueValidator
 from django.contrib.auth.models import User
+from django.core.exceptions import ValidationError
 
 
 class Customer(User):
@@ -93,7 +94,8 @@ class Hotel(models.Model):
 class LivingConditions(models.Model):
     hotel = models.ForeignKey(Hotel, on_delete=models.PROTECT, verbose_name='Отель')
     type_of_hotel_room = models.ForeignKey(TypeOfHotelRoom, on_delete=models.PROTECT, verbose_name='Тип номера')
-    type_of_hotel_catering = models.ForeignKey(TypeОfHotelCatering, on_delete=models.PROTECT, verbose_name='Тип питания')
+    type_of_hotel_catering = models.ForeignKey(TypeОfHotelCatering,
+                                               on_delete=models.PROTECT, verbose_name='Тип питания')
 
     def __str__(self):
         return '%s %s %s' % (self.hotel, self.type_of_hotel_room, self.type_of_hotel_catering)
@@ -127,20 +129,7 @@ class TypeOfResort(models.Model):
         verbose_name_plural = 'Типы курортов'
 
 
-class Service(models.Model):
-    price = models.DecimalField(max_digits=10, decimal_places=2, verbose_name='Цена')
-    start_date = models.DateField(blank=True, null=True, verbose_name='Дата начала(для туров)')
-    end_date = models.DateField(blank=True, null=True, verbose_name='Дата окончания(для туров)')
-
-    def __str__(self):
-        return '%s' % (self.price)
-
-    class Meta:
-        verbose_name = 'Услуга'
-        verbose_name_plural = 'Услуги'
-
-
-class AdditionalService(Service):
+class AdditionalService(models.Model):
     title = models.CharField(max_length=120, verbose_name='Наименование')
     type_of_service = models.CharField(max_length=40, verbose_name='Вид услуги')
 
@@ -152,7 +141,7 @@ class AdditionalService(Service):
         verbose_name_plural = 'Дополнительные услуги'
 
 
-class Tour(Service):
+class Tour(models.Model):
     title = models.CharField(max_length=120, verbose_name='Наименование')
     description = models.TextField(null=True, blank=True, verbose_name='Описание')
     departure_city = models.ForeignKey(City, on_delete=models.PROTECT, verbose_name='Город отправления')
@@ -167,6 +156,27 @@ class Tour(Service):
     class Meta:
         verbose_name = 'Тур'
         verbose_name_plural = 'Туры'
+
+
+
+class Service(models.Model):
+    tour = models.ForeignKey(Tour, blank=True, null=True, on_delete=models.PROTECT, verbose_name='Тур')
+    additional_service = models.ForeignKey(AdditionalService, blank=True, null=True,
+                                           on_delete=models.PROTECT, verbose_name='Дополнительная услуга')
+    price = models.DecimalField(max_digits=10, decimal_places=2, verbose_name='Цена')
+    start_date = models.DateField(blank=True, null=True, verbose_name='Дата начала(для туров)')
+    end_date = models.DateField(blank=True, null=True, verbose_name='Дата окончания(для туров)')
+
+    def clean(self):
+        if self.tour_id and self.additional_service_id:
+            raise ValidationError('Можно заполнить только одно из полей Тур или Сервис')
+
+    def __str__(self):
+        return '%s' % (self.price)
+
+    class Meta:
+        verbose_name = 'Услуга'
+        verbose_name_plural = 'Услуги'
 
 
 class BookingRequest(models.Model):
