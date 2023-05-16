@@ -212,3 +212,37 @@ class BookingRequestPosition(models.Model):
     class Meta:
         verbose_name = 'Позиция заявки'
         verbose_name_plural = 'Позиции заявок'
+
+
+class Message(models.Model):
+    content = models.TextField(verbose_name='Содержимое')
+    departure_date = models.DateTimeField(auto_now_add=True, verbose_name='Дата отправления')
+
+    class Meta:
+        verbose_name = 'Сообщение'
+        verbose_name_plural = 'Сообщения'
+
+
+class PrivateMessage(Message):
+    sender_person = models.ForeignKey(User, on_delete=models.CASCADE, related_name='sender_person', verbose_name='Отправитель')
+    recipient_person = models.ForeignKey(User, on_delete=models.CASCADE, related_name='recipient_person', verbose_name='Получатель')
+
+    def __str__(self):
+        return '%s %s %s' % (self.sender_person.username, self.recipient_person.username, self.departure_date)
+
+    class Meta:
+        verbose_name = 'Личное сообщение'
+        verbose_name_plural = 'Личные сообщения'
+
+
+class News(Message):
+    title = models.CharField(max_length=120, verbose_name='Заголовок')
+    creator = models.ForeignKey(TourismManager, on_delete=models.SET_NULL, null=True,
+                                blank=True, verbose_name='Создатель')
+
+    def __str__(self):
+        return '%s %s %s' % (self.title, self.creator.username,  self.departure_date)
+
+    class Meta:
+        verbose_name = 'Новость'
+        verbose_name_plural = 'Новости'
