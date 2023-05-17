@@ -172,7 +172,12 @@ class Service(models.Model):
             raise ValidationError('Можно заполнить только одно из полей Тур или Сервис')
 
     def __str__(self):
-        return '%s' % (self.price)
+        if self.tour:
+            return '%s (С %s  до %s) (%s)' % (self.tour.title, self.start_date, self.end_date, self.price)
+        elif self.additional_service:
+            return '%s (%s)' % (self.additional_service.title, self.price)
+        else:
+            return 'Неизвестная услуга'
 
     class Meta:
         verbose_name = 'Услуга'
