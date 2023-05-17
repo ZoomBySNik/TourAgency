@@ -11,6 +11,7 @@ class BookingPositionInline(admin.TabularInline):
 
     def has_change_permission(self, request, obj=None):
         return False
+
     def has_add_permission(self, request, obj=None):
         return False
 
@@ -27,6 +28,26 @@ class BookingRequestAdmin(admin.ModelAdmin):
 
     def has_delete_permission(self, request, obj=None):
         return False
+
+    def save_model(self, request, obj, form, change):
+        obj.save()
+
+        if 'status' in form.changed_data:
+            if obj.status == 'processing':
+                additional_message = f'В скором времени вы будете приглашены для заключения договора в офис турагентства'
+            elif obj.status == 'approved':
+                additional_message = f'Ваша заявка подтверждена, просьба явиться в офис турагентства в ближайшее время работы, время уточняйте на странице информации о турагентстве'
+            else:
+                additional_message = ''
+
+            message = PrivateMessage(
+                sender_person=request.user,
+                recipient_person=obj.customer,
+                content=f'Статус вашей заявки изменен на: {obj.status}\n' + additional_message
+            )
+            message.save()
+
+        super().save_model(request, obj, form, change)
 
 
 admin.site.register(BookingRequest, BookingRequestAdmin)
