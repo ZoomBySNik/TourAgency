@@ -2,7 +2,7 @@ from django.db import models
 from django.core.validators import MinValueValidator, MaxValueValidator
 from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
-
+from datetime import datetime, timedelta
 
 class Customer(User):
     phone_number = models.CharField(max_length=18, verbose_name='Номер телефона')
@@ -221,7 +221,7 @@ class BookingRequestPosition(models.Model):
 
 class Message(models.Model):
     content = models.TextField(verbose_name='Содержимое')
-    departure_date = models.DateTimeField(auto_now_add=True, verbose_name='Дата отправления')
+    departure_date = models.DateTimeField(auto_now_add=True, verbose_name='Время отправления')
 
     class Meta:
         verbose_name = 'Сообщение'
@@ -233,7 +233,18 @@ class PrivateMessage(Message):
     recipient_person = models.ForeignKey(User, on_delete=models.CASCADE, related_name='recipient_person', verbose_name='Получатель')
 
     def __str__(self):
-        return '%s %s %s' % (self.sender_person.username, self.recipient_person.username, self.departure_date)
+        today = datetime.now().date()
+        yesterday = today - timedelta(days=1)
+        formatted_date = self.departure_date.date()
+
+        if formatted_date == today:
+            formatted_date = 'Сегодня'
+        elif formatted_date == yesterday:
+            formatted_date = 'Вчера'
+        else:
+            formatted_date = formatted_date.strftime("%Y-%m-%d")
+        formatted_date = formatted_date+self.departure_date.strftime(" %H:%M")
+        return '%s %s %s' % (self.sender_person.get_full_name(), self.recipient_person.get_full_name(), formatted_date)
 
     class Meta:
         verbose_name = 'Личное сообщение'

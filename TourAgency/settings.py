@@ -127,3 +127,11 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+ADMIN_REORDER = (
+    # Keep original label and models
+    'sites',
+    # Rename app
+    {'app': 'tours', 'label': 'Работа с клиентами', 'models': ('tours.BookingRequest', 'tours.PrivateMessage')},
+    # Reorder app models
+)
