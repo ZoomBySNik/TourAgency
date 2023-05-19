@@ -136,6 +136,14 @@ ADMIN_REORDER = (
     # Keep original label and models
     'sites',
     # Rename app
-    {'app': 'tours', 'label': 'Работа с клиентами', 'models': ('tours.BookingRequest', 'tours.PrivateMessage', 'tours.News')},
-    # Reorder app models
+    {'app': 'tours', 'label': 'Работа с клиентами', 'models': ('tours.BookingRequest', 'tours.PrivateMessage'
+                                                               , 'tours.News')},
+
+    {'app': 'tours', 'label': 'Пользователи', 'models': ('tours.TourismManager', 'tours.Customer')},
+
+    {'app': 'tours', 'label': 'Услуги', 'models': ('tours.Service', 'tours.AdditionalService', 'tours.Tour',)},
+
+    {'app': 'tours', 'label': 'Условия проживания', 'models': ('tours.Hotel', 'tours.TypeОfHotelCatering',
+                                                               'tours.TypeOfHotelRoom', 'tours.LivingConditions',)},
+    {'app': 'tours', 'label': 'Прочие справочники', 'models': ('tours.City', 'tours.Insurance', 'tours.TypeOfResort',)},
 )
