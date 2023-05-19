@@ -20,7 +20,7 @@ class TourismManager(User):
     date_of_dismissal = models.DateField(null=True, blank=True, verbose_name='Дата увольнения')
 
     def __str__(self):
-        return '%s %s %s' % (self.first_name, self.last_name, self.date_of_employment)
+        return '%s %s' % (self.first_name, self.last_name)
 
     class Meta:
         verbose_name = 'Менеджер по туризму'
@@ -255,9 +255,22 @@ class News(Message):
     title = models.CharField(max_length=120, verbose_name='Заголовок')
     creator = models.ForeignKey(TourismManager, on_delete=models.SET_NULL, null=True,
                                 blank=True, verbose_name='Создатель')
+    cover_image = models.ImageField(upload_to='news_covers/', null=True,
+                                blank=True, verbose_name='Обложка')
 
     def __str__(self):
-        return '%s %s %s' % (self.title, self.creator.username,  self.departure_date)
+        today = datetime.now().date()
+        yesterday = today - timedelta(days=1)
+        formatted_date = self.departure_date.date()
+
+        if formatted_date == today:
+            formatted_date = 'Сегодня'
+        elif formatted_date == yesterday:
+            formatted_date = 'Вчера'
+        else:
+            formatted_date = formatted_date.strftime("%Y-%m-%d")
+        formatted_date = formatted_date + self.departure_date.strftime(" %H:%M")
+        return '%s %s %s' % (self.title, self.creator.username,  formatted_date)
 
     class Meta:
         verbose_name = 'Новость'
