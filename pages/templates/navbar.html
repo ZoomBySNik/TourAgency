@@ -1,0 +1,82 @@
+{% block content %}
+    <div class="navbar">
+        <ul class="navbar-list">
+            <li class="navbar-item navbar-item-left"><i class="bi bi-list" style="font-size: 1.55rem;
+            cursor: pointer;" onclick="toggleMenu()"></i></li>
+            <li class="navbar-item navbar-item-center"><div class="nav-logo-borders">TRIPZ</div></li>
+            <li class="navbar-item navbar-item-right">
+                <i class="bi bi-telephone " style="font-size: 1.5rem;"></i>
+                <i class="bi bi-person" style="font-size: 1.7rem;"></i>
+            </li>
+        </ul>
+        <ul class="hidden-menu" id="hiddenMenu">
+            <li>Новости</li>
+            <li>Туры</li>
+            <li>О компании</li>
+        </ul>
+    </div>
+    <style>
+        .nav-logo-borders{
+            border-style: solid;
+            border-radius: 1000px;
+            border-width: 0.08em;
+            padding: 0.0125rem 0.25rem;
+            font-size: larger;
+        }
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px;
+            width: 100%;
+            font-size: 48px;
+        }
+
+        .navbar-list {
+            display: flex;
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            width: 100%;
+        }
+
+        .navbar-item {
+            display: flex;
+            align-items: center;
+            margin: 0 10px;
+        }
+
+        .navbar-item-left {
+            margin-right: auto;
+        }
+
+        .navbar-item-right {
+            margin-left: auto;
+        }
+        .bi{
+            margin: 0.5rem;
+        }
+        .hidden-menu {
+            display: none;
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            border-radius: 1em;
+            background-color: transparent;
+            transition: background-color 0.3s ease-in-out;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
+            padding: 0.5em;
+        }
+
+        .hidden-menu li {
+            padding: 5px;
+        }
+    </style>
+    <script>
+        function toggleMenu() {
+            var hiddenMenu = document.getElementById("hiddenMenu");
+            hiddenMenu.style.display = (hiddenMenu.style.display === "none") ? "block" : "none";
+        }
+    </script>
+{% endblock content %}
