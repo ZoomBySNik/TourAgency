@@ -25,3 +25,10 @@ def home_view(request, *args, **kwargs):
         'news': news,
     }
     return render(request, "home.html", context)
+
+def news_view(request):
+    news = News.objects.order_by('departure_date').all()
+    context = {
+        'news':news
+    }
+    return render(request, "news.html", context)

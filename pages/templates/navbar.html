@@ -19,7 +19,7 @@
             </li>
         </ul>
         <ul class="hidden-menu" id="hiddenMenu">
-            <li>Новости</li>
+            <li><a href="{% url 'news' %}">Новости</a></li>
             <li>Туры</li>
             <li>О компании</li>
         </ul>
@@ -95,6 +95,10 @@
 
         .hidden-menu li {
             padding: 5px;
+        }
+        .hidden-menu li a{
+            color: inherit;
+            text-decoration: none;
         }
         .hidden-menu li:hover{
             transform: translateY(-0.2em);

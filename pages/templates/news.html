@@ -1,54 +1,9 @@
 {% extends 'base.html' %}
 {% block content %}
     <div class="header">
-        <img class="main-img" src="https://i.ibb.co/bdJ16yP/mainimg.png">
         <div class="nav-custom">{% include 'navbar.html' %}</div>
     </div>
     <div class="main-content">
-        <div class="main-text-container">
-            <h1 class="main-text-bg">О компании</h1>
-            <h3 class="main-text-fr">О компании</h3>
-        </div>
-        <div class="block">
-            <div class="img-in-block-container">
-                <img src="https://i.ibb.co/R4gmSXw/sergey-pesterev-l-GMufbn-B87-A-unsplash-1.png" class="img-in-block">
-            </div>
-            <div class="text-in-block">
-                <h6>
-                    TRIPZ - турагентство, специализирующееся на реализации уникальных туров по России. Мы предлагаем
-                    широкий выбор путешествий, позволяющих полностью погрузиться в красоту и культуру этой удивительной
-                    страны.
-                </h6>
-                <p>
-                    Наше турагентство имеет богатый опыт в организации разнообразных поездок по России, включая
-                    экскурсионные туры, приключенческие походы, культурные программы и многое другое. Мы тщательно
-                    разрабатываем каждый тур, чтобы наши клиенты могли насладиться неповторимыми впечатлениями и открыть
-                    для себя новые грани этой уникальной страны.
-                </p>
-            </div>
-        </div>
-        <div class="tours-div">
-            <div class="main-text-container">
-                <h1 class="main-text-bg">Туры</h1>
-                <h3 class="main-text-fr">Туры</h3>
-            </div>
-            {% for tour in tours|slice:":3" %}
-                <div class="block">
-                    <div class="img-in-block-container">
-                        <img src="{{ tour.image.url }}" class="img-in-block">
-                    </div>
-                    <div class="text-in-block">
-                        <h6>
-                            {{ tour.title }}
-                        </h6>
-                        <p>{{ tour.description|truncatechars_html:650|linebreaksbr }}</p>
-                    </div>
-                </div>
-            {% endfor %}
-            <div class="button-block">
-                <div class="custom-button">Поиск тура</div>
-            </div>
-        </div>
         <div class="news-div">
             <div class="main-text-container">
                 <h1 class="main-text-bg">Новости</h1>
@@ -63,13 +18,12 @@
                         <h6>
                             {{ new.title }}
                         </h6>
-                        <p>{{ new.content|truncatechars_html:600|linebreaksbr }}</p>
+                        <p>{{ new.content|linebreaksbr }}</p>
+                        <p style="text-align: right">{{ new.creator.get_full_name }}  <i style="font-size: smaller">{{ new.departure_date }}</i></p>
                     </div>
                 </div>
+                <hr style="margin-top: -1.3em">
             {% endfor %}
-            <div class="button-block">
-                <div class="custom-button"><a href="{% url 'news' %}">Больше новостей</a></div>
-            </div>
         </div>
     </div>
     <style>
@@ -158,27 +112,17 @@
 
         .button-block {
             width: 100%;
+            text-align: center;
             padding-bottom: 4em;
         }
-        .custom-button{
-            border-style: solid;
+
+        .custom-button {
+            background: none;
             border-radius: 1000px;
-            border-width: 0.09em;
-            padding: 0.3rem 0.3rem;
-            line-height: 0.9rem;
+            border-color: #3C4166;
+            border-width: 0.2em;
+            font-weight: 600;
             font-size: 1.2em;
-            font-weight: 100;
-            text-decoration: none;
-            color: inherit;
-            width: max-content;
-            margin: auto;
-        }
-        .custom-button:hover{
-            transform: scale(1.2);
-        }
-        .custom-button a{
-            color: inherit;
-            text-decoration: none;
         }
 
         .header {
