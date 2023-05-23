@@ -67,7 +67,7 @@
                         <h6>
                             {{ new.title }}
                         </h6>
-                        <p>{{ new.content|truncatechars_html:650|linebreaksbr }}</p>
+                        <p>{{ new.content|truncatechars_html:640|linebreaksbr }}</p>
                     </div>
                 </div>
             {% endfor %}
@@ -165,6 +165,9 @@
         border-width: 0.2em;
         font-weight: 600;
         font-size: 1.2em;
+    }
+    .header{
+        width: 100%;
     }
 </style>
 </html>
