@@ -25,6 +25,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('register/', views.register_customer, name='register'),
     path('login/', v.LoginView.as_view(), name='login'),
+    path('logout/', v.LogoutView.as_view(next_page='login'), name='logout'),
     path('', views.home_view),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) \
               + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
