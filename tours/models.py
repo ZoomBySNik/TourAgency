@@ -4,6 +4,7 @@ from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
 from datetime import datetime, timedelta
 
+
 class Customer(User):
     phone_number = models.CharField(max_length=18, verbose_name='Номер телефона')
 
