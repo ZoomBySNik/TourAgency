@@ -11,36 +11,36 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
     </head>
 <body style="background: #DFE8FF">
-    <nav>
+    <div class="header">
+        <img class="main-img" src="https://i.ibb.co/bdJ16yP/mainimg.png">
         <div class="nav-custom">{% include 'navbar.html' %}</div>
-    </nav>
-    <section class="section-c">
-        <div class="text-for-section">
-            <h1 class="large-bg-text">О компании</h1>
+    </div>
+    <div class="main-content">
+        <div class="main-text-container">
+            <h1 class="main-text-bg">О компании</h1>
+            <h3 class="main-text-fr">О компании</h3>
         </div>
-        <div class="about">
-            <img src="https://i.ibb.co/HgLWGb6/sergey-pesterev-l-GMufbn-B87-A-unsplash-1.png" class="about-img">
-            <div class="about-info">
-                <h5>TRIPZ - турагентство, специализирующееся на организации уникальных туров по России. Мы предлагаем широкий выбор путешествий, позволяющих полностью погрузиться в красоту и культуру этой удивительной страны.</h5>
-                Наше турагентство имеет богатый опыт в организации разнообразных поездок по России, включая экскурсионные туры, приключенческие походы, культурные программы и многое другое. Мы тщательно отбираем каждый тур, чтобы наши клиенты могли насладиться неповторимыми впечатлениями и открыть для себя новые грани этой уникальной страны.
+        <div class="block">
+            <div class="img-in-block-container">
+                <img src="https://i.ibb.co/HgLWGb6/sergey-pesterev-l-GMufbn-B87-A-unsplash-1.png" class="img-in-block">
+            </div>
+            <div class="text-in-block">
+                <h6>
+                    Лишь действия представителей оппозиции неоднозначны и будут представлены в исключительно положительном свете. Но представители современных социальных резервов разоблачены.
+                </h6>
+                <p>
+                    Кстати, базовые сценарии поведения пользователей будут указаны как претенденты на роль ключевых факторов. Как принято считать, представители современных социальных резервов освещают чрезвычайно интересные особенности картины в целом, однако конкретные выводы, разумеется, указаны как претенденты на роль ключевых факторов. В рамках спецификации современных стандартов, действия представителей оппозиции неоднозначны и будут подвергнуты целой серии независимых исследований. Кстати, активно
+                </p>
             </div>
         </div>
-        <div class="text-for-section">
-            <h1 class="large-bg-text">Туры</h1>
-        </div>
-        <div class="about">
-            <img src="https://i.ibb.co/HgLWGb6/sergey-pesterev-l-GMufbn-B87-A-unsplash-1.png" class="about-img">
-            <div class="about-info">
-            </div>
-        </div>
-    </section>
+    </div>
 </body>
 <style>
     *{
         font-family: 'Inter', sans-serif;
         font-weight: normal;
         font-size: 24px;
-        color: #374159;
+        color: #3C4166;
     }
     .nav-custom{
         z-index: 10000;
@@ -50,23 +50,66 @@
         background: none;
         padding: 0em 2em;
     }
-    .section-c{
-        margin-top: 4rem;
-        width: 100%;
+    .main-img{
+        width: 100%; /* заполнение ширины оболочки */
+        height: 100%; /* заполнение высоты оболочки */
+        object-fit: cover;
     }
-    .text-for-section{
+    .header{
+        margin-bottom: 2em;
+    }
+    .main-content{
+        width: 100%;
+        padding: 2em;
+        margin-bottom: 2em;
+    }
+    .main-text-container{
+        position: relative;
+        height: auto;
+    }
+    .main-text-bg{
+        position: absolute;
+        z-index: 1;
+        font-size: 8em;
+        color: rgba(255, 255, 255, 0.5);
         text-align: center;
         width: 100%;
+        top: -0.55em;
     }
-    .about{
-        padding: 2em;
-        width: 100%;
+    .main-text-fr{
+        position: relative;
+        font-size: 2em;
+        z-index: 2;
+        text-align: center;
     }
-    .about-img{
-        width: 40%;
+    .block{
+        margin-top: 4em;
+        overflow: hidden;
     }
-    .about-info{
-        font-size: smaller;
+    .img-in-block-container{
+        float: left;
+        width: 50%;
+    }
+    .img-in-block{
+        max-width: 100%; /* Убедитесь, что изображение подстраивается под родительский блок */
+        height: auto;
+    }
+    .text-in-block{
+        margin-top: 2em;
+        overflow: hidden;
+         margin-left: 50%;
+    }
+    .text-in-block h6 {
+        position: relative; /* Добавлено свойство position */
+        font-size: 1.2em;
+        border-left-style: solid;
+        border-left-color: #4AABE1;
+        padding-left: 0.2em;
+    }
+    .text-in-block p {
+        position: relative;
+        padding-left: 0.5em;
+        font-size: 0.8em;
     }
 </style>
 </html>
