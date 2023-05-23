@@ -22,23 +22,59 @@
         </div>
         <div class="block">
             <div class="img-in-block-container">
-                <img src="https://i.ibb.co/HgLWGb6/sergey-pesterev-l-GMufbn-B87-A-unsplash-1.png" class="img-in-block">
+                <img src="https://i.ibb.co/R4gmSXw/sergey-pesterev-l-GMufbn-B87-A-unsplash-1.png" class="img-in-block">
             </div>
             <div class="text-in-block">
                 <h6>
-                    Лишь действия представителей оппозиции неоднозначны и будут представлены в исключительно положительном свете. Но представители современных социальных резервов разоблачены.
+                    TRIPZ - турагентство, специализирующееся на реализации уникальных туров по России. Мы предлагаем широкий выбор путешествий, позволяющих полностью погрузиться в красоту и культуру этой удивительной страны.
                 </h6>
                 <p>
-                    Кстати, базовые сценарии поведения пользователей будут указаны как претенденты на роль ключевых факторов. Как принято считать, представители современных социальных резервов освещают чрезвычайно интересные особенности картины в целом, однако конкретные выводы, разумеется, указаны как претенденты на роль ключевых факторов. В рамках спецификации современных стандартов, действия представителей оппозиции неоднозначны и будут подвергнуты целой серии независимых исследований. Кстати, активно
+                    Наше турагентство имеет богатый опыт в организации разнообразных поездок по России, включая экскурсионные туры, приключенческие походы, культурные программы и многое другое. Мы тщательно разрабатываем каждый тур, чтобы наши клиенты могли насладиться неповторимыми впечатлениями и открыть для себя новые грани этой уникальной страны.
                 </p>
             </div>
         </div>
-        <div class="main-text-container">
-            <h1 class="main-text-bg">Туры</h1>
-            <h3 class="main-text-fr">Туры</h3>
+        <div class="tours-div">
+            <div class="main-text-container">
+                <h1 class="main-text-bg">Туры</h1>
+                <h3 class="main-text-fr">Туры</h3>
+            </div>
+            {% for tour in tours|slice:":3" %}
+                <div class="block">
+                    <div class="img-in-block-container">
+                        <img src="{{ tour.image.url }}" class="img-in-block">
+                    </div>
+                    <div class="text-in-block">
+                        <h6>
+                            {{ tour.title }}
+                        </h6>
+                        <p>{{ tour.description|truncatechars_html:650|linebreaksbr }}</p>
+                    </div>
+                </div>
+            {% endfor %}
+            <div class="button-block"><button class="custom-button">Поиск тура</button></div>
         </div>
-
+        <div class="news-div">
+            <div class="main-text-container">
+                <h1 class="main-text-bg">Новости</h1>
+                <h3 class="main-text-fr">Новости</h3>
+            </div>
+            {% for new in news|slice:":3" %}
+                <div class="block">
+                    <div class="img-in-block-container">
+                        <img src="{{ new.cover_image.url }}" class="img-in-block">
+                    </div>
+                    <div class="text-in-block">
+                        <h6>
+                            {{ new.title }}
+                        </h6>
+                        <p>{{ new.content|truncatechars_html:650|linebreaksbr }}</p>
+                    </div>
+                </div>
+            {% endfor %}
+            <div class="button-block"><button class="custom-button">Больше новостей</button></div>
+        </div>
     </div>
+    <div class="my-footer"></div>
 </body>
 <style>
     *{
@@ -59,8 +95,6 @@
         width: 100%; /* заполнение ширины оболочки */
         height: 100%; /* заполнение высоты оболочки */
         object-fit: cover;
-    }
-    .header{
     }
     .main-content{
         width: 100%;
@@ -94,9 +128,12 @@
     .img-in-block-container{
         float: left;
         width: 50%;
+        padding: 1.5em 1.5em 1.8em;
     }
     .img-in-block{
-        max-width: 100%; /* Убедитесь, что изображение подстраивается под родительский блок */
+        max-width: 95%; /* Убедитесь, что изображение подстраивается под родительский блок */
+        border-radius: 0.6em;
+        filter: drop-shadow(0em 0.2em 1em rgba(0, 0, 0, 0.2));
         height: auto;
     }
     .text-in-block{
@@ -115,6 +152,19 @@
         position: relative;
         padding-left: 0.5em;
         font-size: 0.8em;
+    }
+    .button-block{
+        width: 100%;
+        text-align: center;
+        padding-bottom: 4em;
+    }
+    .custom-button{
+        background: none;
+        border-radius: 1000px;
+        border-color: #3C4166;
+        border-width: 0.2em;
+        font-weight: 600;
+        font-size: 1.2em;
     }
 </style>
 </html>

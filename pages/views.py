@@ -6,5 +6,10 @@ from tours.models import *
 
 def home_view(request, *args, **kwargs):
     print(*args, **kwargs)
-
-    return render(request, "home.html")
+    tours = Tour.objects.all()
+    news = News.objects.all().order_by('departure_date')
+    context = {
+        'tours': tours,
+        'news': news,
+    }
+    return render(request, "home.html", context)
