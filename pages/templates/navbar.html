@@ -5,7 +5,7 @@
             cursor: pointer;" onclick="toggleMenu()"></i></li>
             <li class="navbar-item navbar-item-center"><div class="nav-logo-borders">TRIPZ</div></li>
             <li class="navbar-item navbar-item-right">
-                <i class="bi bi-telephone " style="font-size: 1.5rem;"></i>
+                <i class="bi bi-chat-dots" style="font-size: 1.5rem; margin-bottom: 0.4em"></i>
                 <i class="bi bi-person" style="font-size: 1.7rem;"></i>
             </li>
         </ul>
@@ -19,10 +19,14 @@
         .nav-logo-borders{
             border-style: solid;
             border-radius: 1000px;
-            border-width: 0.08em;
-            padding: 0.2rem 0.4rem;
-            line-height: 1.2rem;
-            font-size: larger;
+            border-width: 0.09em;
+            padding: 0.3rem 0.3rem;
+            line-height: 0.9rem;
+            font-size: 1.2em;
+            font-weight: 100;
+        }
+        .nav-logo-borders:hover{
+            transform: scale(1.2);
         }
         .navbar {
             display: flex;
@@ -56,6 +60,9 @@
         .bi{
             margin: 0.5rem;
         }
+        .bi:hover{
+            transform: scale(1.2);
+        }
         .hidden-menu {
             margin-right: 3em;
             display: none;
@@ -72,6 +79,10 @@
 
         .hidden-menu li {
             padding: 5px;
+        }
+        .hidden-menu li:hover{
+            transform: translateY(-0.2em);
+            text-decoration: underline;
         }
     </style>
     <script>

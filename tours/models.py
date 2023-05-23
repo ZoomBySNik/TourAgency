@@ -148,7 +148,8 @@ class Tour(models.Model):
     insurance = models.ForeignKey(Insurance, on_delete=models.PROTECT, verbose_name='Страховка')
     type_of_resort = models.ForeignKey(TypeOfResort, on_delete=models.PROTECT, verbose_name='Тип курорта')
     living_conditions = models.ForeignKey(LivingConditions, on_delete=models.PROTECT, verbose_name='Условия проживания')
-
+    image = models.ImageField(upload_to='tours/', null=True,
+                                blank=True, verbose_name='Обложка')
 
     def __str__(self):
         return '%s %s %s' % (self.title, self.type_of_resort, self.living_conditions.hotel.city)
