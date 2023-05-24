@@ -28,6 +28,7 @@ urlpatterns = [
     path('logout/', v.LogoutView.as_view(next_page='login'), name='logout'),
     path('', views.home_view),
     path('news', views.news_view, name='news'),
-    path('tours', views.tours_view, name='tours')
+    path('tours', views.tours_view, name='tours'),
+    path('tour/<int:id>/', views.tour_detail, name='tour_detail'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) \
               + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

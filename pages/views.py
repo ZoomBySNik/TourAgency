@@ -1,5 +1,7 @@
 from sqlite3 import Date
 
+from django.http import Http404
+
 from tours.models import *
 from django.shortcuts import render, redirect
 from .forms import CustomerRegistrationForm, FilterForTours
@@ -61,3 +63,12 @@ def tours_view(request):
         'form': form,
     }
     return render(request, "tours.html", context)
+
+
+def tour_detail(request, id):
+    try:
+        service = Service.objects.get(id=id)
+        context = {'service': service}
+        return render(request, 'tour.html', context)
+    except Service.DoesNotExist:
+        raise Http404("Service does not exist")
