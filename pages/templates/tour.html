@@ -55,9 +55,14 @@
             </p>
             <p style="color: #c61e29; font-weight: bolder">Цена: {{ service.price }}р</p>
             <hr>
+            {% if request.user.is_authenticated %}
             <div class="button-block">
-                <div class="custom-button"><a href="">Забронировать</a></div>
+                <form method="post" action="{% url 'create_request_on_tour' id=service.id %}">
+                    {% csrf_token %}
+                    <button type="submit" class="custom-button">Забронировать</button>
+                </form>
             </div>
+            {% endif %}
         </div>
     </div>
     <style>
@@ -133,6 +138,7 @@
         .button-block {
             width: 100%;
             padding-bottom: 4em;
+            margin-left: 2em;
         }
         .custom-button{
             border-style: solid;
@@ -146,6 +152,9 @@
             color: inherit;
             width: max-content;
             margin: auto;
+            background: none;
+            border-color: inherit;
+            border-style: solid;
         }
         .custom-button:hover{
             transform: scale(1.2);

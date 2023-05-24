@@ -28,6 +28,7 @@ def home_view(request, *args, **kwargs):
         'tours': tours,
         'news': news,
     }
+    user = request.user.id
     return render(request, "home.html", context)
 
 
@@ -72,3 +73,18 @@ def tour_detail(request, id):
         return render(request, 'tour.html', context)
     except Service.DoesNotExist:
         raise Http404("Service does not exist")
+
+
+def create_request_on_tour(request, id):
+    customer = Customer.objects.get(id=request.user.id)
+    book_request = BookingRequest(customer=customer)
+    book_request.save()
+
+    book_request_position = BookingRequestPosition(count=1, booking_order=book_request, service_id=id)
+    book_request_position.save()
+
+    private_message = PrivateMessage(sender_person=request.user,
+                                     recipient_person=User.objects.get(first_name='System'),
+                                     content='Ваша заявка на бронирование успешно создана\n'+str(Service.objects.get(id=id)))
+    private_message.save()
+    return redirect('news')

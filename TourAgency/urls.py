@@ -30,5 +30,6 @@ urlpatterns = [
     path('news', views.news_view, name='news'),
     path('tours', views.tours_view, name='tours'),
     path('tour/<int:id>/', views.tour_detail, name='tour_detail'),
+    path('book-request/<int:id>/', views.create_request_on_tour, name='create_request_on_tour')
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) \
               + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
